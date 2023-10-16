@@ -4,10 +4,18 @@ require('dotenv').config();
 
 const port = process.env.PORT;
 
-//middleware(son funciones que se ejecutan antes de llegar a los end point )
 
-app.use(express.json());//express ya tiene u bodiparcer para tarabajar con json
-//end pont 
+//middleware (Son funciones que se ejecutan antes de llegar a los end point)
+app.use(express.json());
+app.use(function(req, res, next){
+    res.setHeader('Access-Control-Allow-Origin','*');
+    res.setHeader('Access-Control-Allow-Methods','GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers','X-Requested-With, content-type');
+    res.setHeader('Access-Control-Allow-Credentials',true);
+    next();
+
+});
+
 
 const tarea1 = require('./rutas/tarea1');
 app.use('/api/task/', tarea1);
@@ -18,4 +26,3 @@ app.listen( port, ()=>{
 
 });
 
-//install dotenv sirve para la conexion que cada uno pueda tener sus propias credenciales
