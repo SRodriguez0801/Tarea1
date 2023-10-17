@@ -3,7 +3,7 @@ const app = express();
 const db = require('../database/conn');
 
 app.get('', async (req, res) => {
-    let sql = `SELECT * FROM tbl_lista ORDER BY id ASC`;
+    let sql = `SELECT id, nombre ,edad, to_char(fecha_ingreso, 'yyyy-mm-dd')fecha_ingreso FROM tbl_lista ORDER BY id ASC`;
     const result = await db.query(sql);
     res.json(result);
 });
@@ -19,10 +19,10 @@ app.post('', async (req, res) => {
 app.put('/:id', async (req, res) => {
     const { nombre, edad, fecha_ingreso, finish } = req.body;
     const id = req.params.id;
-    const params = [nombre, edad, fecha_ingreso, finish, id];
+    const params = [nombre, edad, fecha_ingreso, id];
     let sql = `UPDATE tbl_lista 
-               SET nombre = $1, edad = $2, fecha_ingreso = $3, finish = $4
-               WHERE id = $5
+               SET nombre = $1, edad = $2, fecha_ingreso = $3,
+               WHERE id = $4
                RETURNING *`;
     const result = await db.query(sql, params);
     res.json(result);
