@@ -20,6 +20,12 @@ app.use(function(req, res, next){
 const tarea1 = require('./rutas/tarea1');
 app.use('/api/task/', tarea1);
 
+const Usuario = require('./rutas/Usuario');
+app.use('/api/Usuarios/',Usuario);
+
+const Menu = require('./rutas/Menu');
+app.use('/api/Menu/',Usuario);
+
 app.listen( port, ()=>{
 
     console.log(`Servidor en el puerto ${port}`);
